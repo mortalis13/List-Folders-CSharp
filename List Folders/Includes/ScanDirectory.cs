@@ -4,15 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web.Script.Serialization;
 
 namespace ListFolders.Includes {
   public class ScanDirectory {
     MainForm form;
+    Thread worker;
 
     public string path;
 
-    public string text;
+    public string text="";
     public List<TreeNode> jsonArray;
 
     const string nl = "\r\n";
@@ -31,7 +33,7 @@ namespace ListFolders.Includes {
     int dirCount = 0;
     int rootDirCount = 0;
     int longestDirName = 0;
-    bool scanCanceled = false;
+    public static bool scanCanceled = false;
     long prevTime = 0;
     int totalTime = 0;
     
@@ -81,17 +83,53 @@ namespace ListFolders.Includes {
     }
 
     public void startScan(){                                         // << Start point >>
-      jsonArray=fullScan(path, 0);
+      scanCanceled=false;
+      worker = new Thread(backgroundProcess);
+      worker.Start();
+    }
+
+    public void stopScan(){
+      scanCanceled=true;
+      // worker.Abort();
+    }
+
+    void backgroundProcess() {
+      prepareProcessing();
+      jsonArray = fullScan(path, 0);
       done();
-      form.tbOut.Text = text;
     }
     
     private void done(){
       if(doExportText) exportText();
       if(doExportTree) exportTree();
+      
+      log(nl+"----------------------------"+nl);
+      string time=Functions.formatTime(totalTime, "(time: {0:f2} s)");
+      log("Total time: "+time+nl);
+      
+      Functions.setProgress(100);
+      updateStatusBar("finish");
+      form.bScanDir.Text="Scan Directory";
+      MainForm.startScan=true;
+      
+      if(scanCanceled){
+        Functions.setProgress(0);
+        updateStatusBar("cancel");
+        log(nl+"Scanning canceled");
+      }
+    }
+    
+    void prepareProcessing(){
+      Functions.setProgress(0);
+      Functions.clearLog();
+      prevTime=Functions.ms();
+      form.bScanDir.Text="Stop";
+      MainForm.startScan=false;
     }
 
     private List<TreeNode> fullScan(string dir, int level) {
+      if(scanCanceled) return null;
+      
       List<TreeNode> json, res;
       TreeNode node;
       DirectoryInfo list;
@@ -102,17 +140,35 @@ namespace ListFolders.Includes {
       list = new DirectoryInfo(dir);
       pad = getPadding(level);
 
-      foreach (DirectoryInfo nextDir in list.GetDirectories()) {
+      DirectoryInfo[] dirList=list.GetDirectories();
+      if (level == 0) {
+        rootDirCount = getDirCount(dirList.Length);
+      }
+      
+      foreach (DirectoryInfo nextDir in dirList) {
         string name=nextDir.Name;
-        if(level==0 && !filterDirectory(name)) continue;
-        
         string currentDir = "[" + name + "]";
-        text += pad + currentDir + nl;
+
+        if(level==0){
+          if(!filterDirectory(name)) continue;
+          updateStatusBar("scanning", currentDir);
+        } 
+
+        if(doExportText)
+          text += pad + currentDir + nl;
         
         res=fullScan(nextDir.FullName, level+1);
+        if(res==null) return null;
         
         node = new DirNode(name, res);
         json.Add(node);
+
+        if (level == 0) {
+          dirCount++;
+          int progress=(int) ((float) dirCount/rootDirCount*100);
+          logStats(currentDir, progress);
+          Functions.setProgress(progress);
+        }
       }
 
       foreach (FileInfo nextFile in list.GetFiles()) {
@@ -120,7 +176,8 @@ namespace ListFolders.Includes {
         if(!filterFile(name)) continue;
         
         string currentFile = name;
-        text += pad + currentFile + nl;
+        if (doExportText)
+          text += pad + currentFile + nl;
         
         node = new FileNode(name, getIcon(name));
         json.Add(node);
@@ -130,6 +187,53 @@ namespace ListFolders.Includes {
     }
     
 // --------------------------------------------------- helpers ---------------------------------------------------
+    
+    private int getDirCount(int totalCount){
+      int filteredCount=filterDir.Count;
+      if(filteredCount==0) return totalCount;
+      return filteredCount;
+    }
+    
+    /*
+     * Calculates and outputs time between folders processing
+     */
+    private void logStats(string currentDir, int progress){
+      long currentTime=Functions.ms();
+
+      int time=(int) (currentTime-prevTime);
+      prevTime=currentTime;
+      
+      string timeString=Functions.formatTime(time, "Time: {0:f2} s ");
+      totalTime+=time;
+      
+      log(currentDir+"\n  "+timeString);
+      log("\t Dir: "+dirCount+"/"+rootDirCount+" \t progress: "+progress+"% \n");
+    }
+    
+    /*
+     * Sets text in the window status bar
+     */
+    private void updateStatusBar(string type, string currentDir=""){
+      string text="";
+      
+      switch(type){
+        case "scanning":
+          text="Scanning: "+currentDir;
+          break;
+        case "finish":
+          string time=Functions.formatTime(totalTime, "(time: {0:f2} s)");
+          text="Scanning finished "+time;
+          break;
+        case "cancel":
+          text="Scanning canceled";
+          break;
+      }
+      form.lStatus.Text=text;
+    }
+    
+    private void log(string text){
+      Functions.log(text);
+    }
     
     /*
      * Replaces strings from the tree template (strings format: '_string_') with the 'replacement' text

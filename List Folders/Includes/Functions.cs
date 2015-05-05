@@ -1,19 +1,28 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
+using System.Windows.Forms;
 
 namespace ListFolders.Includes {
-  class Functions {
+  public class Functions {
+    
+    static MainForm form;
+    
+    public Functions(){
+      form=MainForm.form;
+    }
     
     /*
      * Gets Dictionary of all form fields
      * which is used to serialize them to JSON string
      */
     public static IDictionary getFieldsMap(){
-      MainForm form=MainForm.form;
+      // form=MainForm.form;
       
       Dictionary<string, object> dict=new Dictionary<string, object>();
         
@@ -69,7 +78,7 @@ namespace ListFolders.Includes {
      * Assigns values from the HashMap to form fields
      */
     private static void assignFields(Dictionary<string, object> fields){
-      MainForm form=MainForm.form;
+      // MainForm form=MainForm.form;
       
       form.tbPath.Text=(string) fields["path"];
       form.tbFilterExt.Text=(string) fields["filterExt"];
@@ -127,9 +136,41 @@ namespace ListFolders.Includes {
     }
     
     public static void log(string text){
-      MainForm.form.tbOut.Text+=text;
+      form.tbOut.Text+=text;
     }
     
+    public static void clearLog(){
+      form.tbOut.Clear();
+    }
+    
+    public static long ms(){
+      long time = (long) DateTime.Now.TimeOfDay.TotalMilliseconds;
+      return time;
+    }
+    
+    /*
+     * Formats time value according to the format
+     */
+    public static string formatTime(int time, string format){
+      string res=String.Format(format, (float) time/1000);
+      return res;
+    }
+
+    public static void drawBorder(object sender, PaintEventArgs e) {
+      var control = (Control)sender;
+
+      var graphics = e.Graphics;
+      var bounds = e.Graphics.ClipBounds;
+
+      Pen pen = new Pen(Color.FromArgb(120, 120, 120));
+      pen.DashStyle = DashStyle.Dot;
+      graphics.DrawLine(pen, new PointF(0, 0), new PointF(control.Width, 0));
+    }
+    
+    public static void setProgress(int val){
+      form.progressBar.Value=val;
+    }
+        
     public static string encodeJSON(object obj){
       string json = new JavaScriptSerializer().Serialize(obj);
       return json;

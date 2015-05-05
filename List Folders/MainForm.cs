@@ -14,21 +14,32 @@ using System.Windows.Forms;
 namespace ListFolders {
   public partial class MainForm : Form {
     public static MainForm form;
-    public static Database db; 
+    public static Database db;
+    ScanDirectory scandir;
+    
+    public static bool startScan=true;
 
     public MainForm() {
       InitializeComponent();
+      pStatus.Paint += Functions.drawBorder;
+
       tbPath.Text = @"C:\1-Roman\Documents\8-test\list-test\en";
     }
 
     private void bScanDir_Click(object sender, EventArgs e) {
-      ScanDirectory scandir = new ScanDirectory(form);
-      scandir.startScan();
+      if (MainForm.startScan) {
+        scandir = new ScanDirectory(form);
+        scandir.startScan();
+      }
+      else {
+        scandir.stopScan();
+      }
     }
 
     private void MainForm_Load(object sender, EventArgs e) {
       form = this;
       db = new Database();
+      new Functions();
       Functions.loadFields();
     }
 
@@ -83,7 +94,6 @@ namespace ListFolders {
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
       string value = Functions.encodeJSON(Functions.getFieldsMap());
       db.updateConfig("last", value);
-
       db.CloseConnection();
     }
 

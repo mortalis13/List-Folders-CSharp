@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Drawing.Drawing2D;
 
 namespace Test {
   public partial class Test : Form {
@@ -88,7 +89,7 @@ namespace Test {
       tbRes.Text = res;
     }
 
-    private void test() {
+    private void test5() {
       Test.RegisterHotKey(this.Handle, this.GetType().GetHashCode(), 2, (int)'E');
     }
 
@@ -98,7 +99,41 @@ namespace Test {
       base.WndProc(ref m);
     }
 
+    private void test6() {
+      //long res = (long) (DateTime.Now - DateTime.Today).TotalMilliseconds;
+
+      long res = (long) DateTime.Now.TimeOfDay.TotalMilliseconds;
+      tbRes.Text += res.ToString() + nl;
+
+      DateTime date = DateTime.Today;
+      //tbRes.Text += date + nl;
+    }
+
+    private void test7() {
+      double d = 362.365895;
+      tbRes.Text = String.Format("{0:f2}",d);
+    }
+
+    private void test() {
+      panel1.Paint += drawBorder;
+    }
+
+    void drawBorder(object sender, PaintEventArgs e) {
+      var control = (Control)sender;
+
+      var graphics = e.Graphics;
+      var bounds = e.Graphics.ClipBounds;
+
+      Pen pen=new Pen(Color.FromArgb(120,120,120));
+      pen.DashStyle = DashStyle.Dot;
+      graphics.DrawLine(pen, new PointF(0, 0), new PointF(control.Width, 0));
+    }
+
     private void Test_Load(object sender, EventArgs e) {
+      test();
+    }
+
+    private void bTest_Click(object sender, EventArgs e) {
       test();
     }
 

@@ -31,7 +31,7 @@
       this.tbPath = new System.Windows.Forms.TextBox();
       this.bScanDir = new System.Windows.Forms.Button();
       this.lPath = new System.Windows.Forms.Label();
-      this.panel1 = new System.Windows.Forms.Panel();
+      this.pOptions = new System.Windows.Forms.Panel();
       this.tbFilterDir = new System.Windows.Forms.RichTextBox();
       this.tbExcludeExt = new System.Windows.Forms.RichTextBox();
       this.tbFilterExt = new System.Windows.Forms.RichTextBox();
@@ -50,7 +50,11 @@
       this.bBrowse = new System.Windows.Forms.Button();
       this.bClearOut = new System.Windows.Forms.Button();
       this.bTest = new System.Windows.Forms.Button();
-      this.panel1.SuspendLayout();
+      this.progressBar = new System.Windows.Forms.ProgressBar();
+      this.pStatus = new System.Windows.Forms.Panel();
+      this.lStatus = new System.Windows.Forms.Label();
+      this.pOptions.SuspendLayout();
+      this.pStatus.SuspendLayout();
       this.SuspendLayout();
       // 
       // tbPath
@@ -82,24 +86,24 @@
       this.lPath.TabIndex = 3;
       this.lPath.Text = "Path";
       // 
-      // panel1
+      // pOptions
       // 
-      this.panel1.Controls.Add(this.tbFilterDir);
-      this.panel1.Controls.Add(this.tbExcludeExt);
-      this.panel1.Controls.Add(this.tbFilterExt);
-      this.panel1.Controls.Add(this.chExportTree);
-      this.panel1.Controls.Add(this.chExportText);
-      this.panel1.Controls.Add(this.bClearFilterDir);
-      this.panel1.Controls.Add(this.bClearExcludeExt);
-      this.panel1.Controls.Add(this.bClearFilterExt);
-      this.panel1.Controls.Add(this.lExportOpt);
-      this.panel1.Controls.Add(this.lFilterDir);
-      this.panel1.Controls.Add(this.lExcludeExt);
-      this.panel1.Controls.Add(this.lFilterExt);
-      this.panel1.Location = new System.Drawing.Point(12, 61);
-      this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(478, 178);
-      this.panel1.TabIndex = 4;
+      this.pOptions.Controls.Add(this.tbFilterDir);
+      this.pOptions.Controls.Add(this.tbExcludeExt);
+      this.pOptions.Controls.Add(this.tbFilterExt);
+      this.pOptions.Controls.Add(this.chExportTree);
+      this.pOptions.Controls.Add(this.chExportText);
+      this.pOptions.Controls.Add(this.bClearFilterDir);
+      this.pOptions.Controls.Add(this.bClearExcludeExt);
+      this.pOptions.Controls.Add(this.bClearFilterExt);
+      this.pOptions.Controls.Add(this.lExportOpt);
+      this.pOptions.Controls.Add(this.lFilterDir);
+      this.pOptions.Controls.Add(this.lExcludeExt);
+      this.pOptions.Controls.Add(this.lFilterExt);
+      this.pOptions.Location = new System.Drawing.Point(12, 61);
+      this.pOptions.Name = "pOptions";
+      this.pOptions.Size = new System.Drawing.Size(478, 178);
+      this.pOptions.TabIndex = 4;
       // 
       // tbFilterDir
       // 
@@ -241,9 +245,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tbOut.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.tbOut.Location = new System.Drawing.Point(12, 341);
+      this.tbOut.Location = new System.Drawing.Point(12, 343);
       this.tbOut.Name = "tbOut";
-      this.tbOut.Size = new System.Drawing.Size(479, 221);
+      this.tbOut.Size = new System.Drawing.Size(479, 218);
       this.tbOut.TabIndex = 7;
       this.tbOut.Text = "";
       this.tbOut.WordWrap = false;
@@ -279,17 +283,47 @@
       this.bTest.UseVisualStyleBackColor = true;
       this.bTest.Click += new System.EventHandler(this.bTest_Click);
       // 
+      // progressBar
+      // 
+      this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.progressBar.Location = new System.Drawing.Point(12, 572);
+      this.progressBar.Name = "progressBar";
+      this.progressBar.Size = new System.Drawing.Size(477, 16);
+      this.progressBar.TabIndex = 10;
+      // 
+      // pStatus
+      // 
+      this.pStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.pStatus.Controls.Add(this.lStatus);
+      this.pStatus.Location = new System.Drawing.Point(12, 600);
+      this.pStatus.Name = "pStatus";
+      this.pStatus.Size = new System.Drawing.Size(478, 19);
+      this.pStatus.TabIndex = 11;
+      // 
+      // lStatus
+      // 
+      this.lStatus.AutoSize = true;
+      this.lStatus.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lStatus.Location = new System.Drawing.Point(2, 5);
+      this.lStatus.Name = "lStatus";
+      this.lStatus.Size = new System.Drawing.Size(0, 13);
+      this.lStatus.TabIndex = 0;
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(503, 574);
+      this.ClientSize = new System.Drawing.Size(503, 624);
+      this.Controls.Add(this.pStatus);
+      this.Controls.Add(this.progressBar);
       this.Controls.Add(this.bTest);
       this.Controls.Add(this.bBrowse);
       this.Controls.Add(this.tbOut);
       this.Controls.Add(this.lExportName);
       this.Controls.Add(this.tbExportName);
-      this.Controls.Add(this.panel1);
+      this.Controls.Add(this.pOptions);
       this.Controls.Add(this.lPath);
       this.Controls.Add(this.bClearOut);
       this.Controls.Add(this.bScanDir);
@@ -300,8 +334,10 @@
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
       this.Load += new System.EventHandler(this.MainForm_Load);
       this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
-      this.panel1.ResumeLayout(false);
-      this.panel1.PerformLayout();
+      this.pOptions.ResumeLayout(false);
+      this.pOptions.PerformLayout();
+      this.pStatus.ResumeLayout(false);
+      this.pStatus.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -312,7 +348,7 @@
         public System.Windows.Forms.TextBox tbPath;
         public System.Windows.Forms.Button bScanDir;
         public System.Windows.Forms.Label lPath;
-        public System.Windows.Forms.Panel panel1;
+        public System.Windows.Forms.Panel pOptions;
         public System.Windows.Forms.Button bClearFilterExt;
         public System.Windows.Forms.Label lFilterExt;
         public System.Windows.Forms.Button bClearFilterDir;
@@ -331,6 +367,9 @@
         private System.Windows.Forms.Button bBrowse;
         public System.Windows.Forms.Button bClearOut;
         private System.Windows.Forms.Button bTest;
+        private System.Windows.Forms.Panel pStatus;
+        public System.Windows.Forms.ProgressBar progressBar;
+        public System.Windows.Forms.Label lStatus;
     }
 }
 

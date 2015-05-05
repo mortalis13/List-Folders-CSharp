@@ -24,6 +24,8 @@
     /// </summary>
     private void InitializeComponent() {
       this.tbRes = new System.Windows.Forms.RichTextBox();
+      this.bTest = new System.Windows.Forms.Button();
+      this.panel1 = new System.Windows.Forms.Panel();
       this.SuspendLayout();
       // 
       // tbRes
@@ -37,17 +39,36 @@
       this.tbRes.Location = new System.Drawing.Point(12, 12);
       this.tbRes.Margin = new System.Windows.Forms.Padding(10);
       this.tbRes.Name = "tbRes";
-      this.tbRes.Size = new System.Drawing.Size(829, 520);
+      this.tbRes.Size = new System.Drawing.Size(829, 477);
       this.tbRes.TabIndex = 1;
       this.tbRes.Text = "";
       this.tbRes.WordWrap = false;
       this.tbRes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbRes_KeyDown);
+      // 
+      // bTest
+      // 
+      this.bTest.Location = new System.Drawing.Point(12, 502);
+      this.bTest.Name = "bTest";
+      this.bTest.Size = new System.Drawing.Size(140, 38);
+      this.bTest.TabIndex = 2;
+      this.bTest.Text = "Test";
+      this.bTest.UseVisualStyleBackColor = true;
+      this.bTest.Click += new System.EventHandler(this.bTest_Click);
+      // 
+      // panel1
+      // 
+      this.panel1.Location = new System.Drawing.Point(170, 503);
+      this.panel1.Name = "panel1";
+      this.panel1.Size = new System.Drawing.Size(670, 36);
+      this.panel1.TabIndex = 3;
       // 
       // Test
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(852, 552);
+      this.Controls.Add(this.panel1);
+      this.Controls.Add(this.bTest);
       this.Controls.Add(this.tbRes);
       this.Name = "Test";
       this.Text = "Test";
@@ -59,6 +80,8 @@
     #endregion
 
     private System.Windows.Forms.RichTextBox tbRes;
+    private System.Windows.Forms.Button bTest;
+    private System.Windows.Forms.Panel panel1;
   }
 }
 
