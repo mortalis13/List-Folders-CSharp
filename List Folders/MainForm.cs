@@ -14,6 +14,7 @@ using System.Windows.Forms;
 namespace ListFolders {
   public partial class MainForm : Form {
     public static MainForm form;
+    public static Database db; 
 
     public MainForm() {
       InitializeComponent();
@@ -27,6 +28,8 @@ namespace ListFolders {
 
     private void MainForm_Load(object sender, EventArgs e) {
       form = this;
+      db = new Database();
+      Functions.loadFields();
     }
 
     private void bBrowse_Click(object sender, EventArgs e) {
@@ -75,6 +78,17 @@ namespace ListFolders {
       if (e.KeyCode == Keys.Escape) {
         Close();
       }
+    }
+
+    private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+      string value = Functions.encodeJSON(Functions.getFieldsMap());
+      db.updateConfig("last", value);
+
+      db.CloseConnection();
+    }
+
+    private void bTest_Click(object sender, EventArgs e) {
+      //Functions.log(res.ToString());
     }
 
   }

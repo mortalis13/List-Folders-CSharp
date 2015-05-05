@@ -320,7 +320,8 @@ namespace ListFolders.Includes {
       string filters;
       string jsonFile, htmlFile;
       
-      json = new JavaScriptSerializer().Serialize(jsonArray);
+      json = Functions.encodeJSON(jsonArray);
+      // json = new JavaScriptSerializer().Serialize(jsonArray);
       
       treeName=getExportName(null);                                         // get name
       

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Web.Script.Serialization;
 
 namespace ListFolders.Includes {
   class Functions {
@@ -37,6 +38,47 @@ namespace ListFolders.Includes {
       dict.Add("exportName", exportName);
       
       return dict;
+    }
+    
+    /*
+     * Loads field values from the 'options' table
+     * and assigns each value to appropriate field on the form
+     */
+    public static void loadFields(string fieldsList){
+      Dictionary<string, object> fields;
+      if(fieldsList.Length==0) return;
+      fields=(Dictionary<string, object>) decodeJSON(fieldsList);
+
+      int x = 1;
+
+      assignFields(fields);
+    }
+
+    /*
+     * Loads and assign the last options set
+     * saved after previous application session
+     * Redirects to more general method loadFields(string)
+     */
+    public static void loadFields() {
+      string last = MainForm.db.loadLastOptions();
+      if (last == null) return;
+      loadFields(last);
+    }
+    
+    /*
+     * Assigns values from the HashMap to form fields
+     */
+    private static void assignFields(Dictionary<string, object> fields){
+      MainForm form=MainForm.form;
+      
+      form.tbPath.Text=(string) fields["path"];
+      form.tbFilterExt.Text=(string) fields["filterExt"];
+      form.tbExcludeExt.Text=(string) fields["excludeExt"];
+      form.tbFilterDir.Text=(string) fields["filterDir"];
+      
+      form.chExportText.Checked=(bool) fields["doExportText"];
+      form.chExportTree.Checked=(bool) fields["doExportTree"];
+      form.tbExportName.Text=(string) fields["exportName"];
     }
     
     /*
@@ -86,6 +128,16 @@ namespace ListFolders.Includes {
     
     public static void log(string text){
       MainForm.form.tbOut.Text+=text;
+    }
+    
+    public static string encodeJSON(object obj){
+      string json = new JavaScriptSerializer().Serialize(obj);
+      return json;
+    }
+
+    public static IDictionary decodeJSON(string json){
+      IDictionary dict = new JavaScriptSerializer().Deserialize<IDictionary>(json);
+      return dict;
     }
 
   }

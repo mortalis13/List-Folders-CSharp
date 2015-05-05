@@ -49,6 +49,7 @@
       this.tbOut = new System.Windows.Forms.RichTextBox();
       this.bBrowse = new System.Windows.Forms.Button();
       this.bClearOut = new System.Windows.Forms.Button();
+      this.bTest = new System.Windows.Forms.Button();
       this.panel1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -268,11 +269,22 @@
       this.bClearOut.UseVisualStyleBackColor = true;
       this.bClearOut.Click += new System.EventHandler(this.bClearOut_Click);
       // 
+      // bTest
+      // 
+      this.bTest.Location = new System.Drawing.Point(401, 300);
+      this.bTest.Name = "bTest";
+      this.bTest.Size = new System.Drawing.Size(90, 35);
+      this.bTest.TabIndex = 9;
+      this.bTest.Text = "Test";
+      this.bTest.UseVisualStyleBackColor = true;
+      this.bTest.Click += new System.EventHandler(this.bTest_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(503, 574);
+      this.Controls.Add(this.bTest);
       this.Controls.Add(this.bBrowse);
       this.Controls.Add(this.tbOut);
       this.Controls.Add(this.lExportName);
@@ -285,6 +297,7 @@
       this.KeyPreview = true;
       this.Name = "MainForm";
       this.Text = "List Folders";
+      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
       this.Load += new System.EventHandler(this.MainForm_Load);
       this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
       this.panel1.ResumeLayout(false);
@@ -317,6 +330,7 @@
         public System.Windows.Forms.RichTextBox tbOut;
         private System.Windows.Forms.Button bBrowse;
         public System.Windows.Forms.Button bClearOut;
+        private System.Windows.Forms.Button bTest;
     }
 }
 
