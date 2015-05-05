@@ -48,6 +48,7 @@
       this.lExportName = new System.Windows.Forms.Label();
       this.tbOut = new System.Windows.Forms.RichTextBox();
       this.bBrowse = new System.Windows.Forms.Button();
+      this.bClearOut = new System.Windows.Forms.Button();
       this.panel1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -159,6 +160,7 @@
       this.bClearFilterDir.TabIndex = 2;
       this.bClearFilterDir.Text = "Clear";
       this.bClearFilterDir.UseVisualStyleBackColor = true;
+      this.bClearFilterDir.Click += new System.EventHandler(this.bClearFilterDir_Click);
       // 
       // bClearExcludeExt
       // 
@@ -168,6 +170,7 @@
       this.bClearExcludeExt.TabIndex = 2;
       this.bClearExcludeExt.Text = "Clear";
       this.bClearExcludeExt.UseVisualStyleBackColor = true;
+      this.bClearExcludeExt.Click += new System.EventHandler(this.bClearExcludeExt_Click);
       // 
       // bClearFilterExt
       // 
@@ -177,6 +180,7 @@
       this.bClearFilterExt.TabIndex = 2;
       this.bClearFilterExt.Text = "Clear";
       this.bClearFilterExt.UseVisualStyleBackColor = true;
+      this.bClearFilterExt.Click += new System.EventHandler(this.bClearFilterExt_Click);
       // 
       // lExportOpt
       // 
@@ -251,6 +255,17 @@
       this.bBrowse.TabIndex = 8;
       this.bBrowse.Text = "Browse...";
       this.bBrowse.UseVisualStyleBackColor = true;
+      this.bBrowse.Click += new System.EventHandler(this.bBrowse_Click);
+      // 
+      // bClearOut
+      // 
+      this.bClearOut.Location = new System.Drawing.Point(143, 312);
+      this.bClearOut.Name = "bClearOut";
+      this.bClearOut.Size = new System.Drawing.Size(110, 23);
+      this.bClearOut.TabIndex = 1;
+      this.bClearOut.Text = "Clear";
+      this.bClearOut.UseVisualStyleBackColor = true;
+      this.bClearOut.Click += new System.EventHandler(this.bClearOut_Click);
       // 
       // MainForm
       // 
@@ -263,6 +278,7 @@
       this.Controls.Add(this.tbExportName);
       this.Controls.Add(this.panel1);
       this.Controls.Add(this.lPath);
+      this.Controls.Add(this.bClearOut);
       this.Controls.Add(this.bScanDir);
       this.Controls.Add(this.tbPath);
       this.Name = "MainForm";
@@ -297,6 +313,7 @@
         public System.Windows.Forms.RichTextBox tbFilterExt;
         public System.Windows.Forms.RichTextBox tbOut;
         private System.Windows.Forms.Button bBrowse;
+        public System.Windows.Forms.Button bClearOut;
     }
 }
 

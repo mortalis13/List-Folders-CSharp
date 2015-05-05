@@ -43,7 +43,7 @@ namespace ListFolders.Includes {
      * Formats path, fixes backslashes, trims
      */
     public static string formatPath(string path) {
-      path=path.Replace('\\', '/');
+      path=path.Replace('/', '\\');
       path=path.Trim();
       return path;
     }
@@ -70,6 +70,18 @@ namespace ListFolders.Includes {
       Regex rx = new Regex(regex);
       Match match = rx.Match(text);
       return match.Success;
+    }
+    
+    public static string regexFind(string pattern, string text, int group=1){
+      string res="";
+      
+      Regex rx = new Regex(pattern);
+      Match match = rx.Match(text);
+      if(match.Success){
+        res = match.Groups[group].ToString();
+      }
+      
+      return res;
     }
 
   }

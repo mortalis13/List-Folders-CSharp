@@ -87,6 +87,7 @@ namespace ListFolders.Includes {
     }
     
     private void done(){
+      if(doExportText) exportText();
       if(doExportTree) exportTree();
     }
 
@@ -160,6 +161,49 @@ namespace ListFolders.Includes {
       icon="jstree-file";
       path=iconsPath;
       iconExt=".png"; 
+      
+      ext=Functions.regexFind(@"\.([\w]+)$", file);
+      if(ext.Length==0) return icon;
+      
+      if(useDefault){                                             // process different types of extensions
+        foreach(string item in exts){
+          if(item.Equals(ext)){
+            icon=path+item+iconExt;
+            useDefault=false;
+            break;
+          }
+        }
+      }
+      
+      if(useDefault){                                             // process different types of extensions
+        foreach(string item in imageExts){
+          if(item.Equals(ext)){
+            icon=path+"image"+iconExt;
+            useDefault=false;
+            break;
+          }
+        }
+      }
+      
+      if(useDefault){                                             // process different types of extensions
+        foreach(string item in musicExts){
+          if(item.Equals(ext)){
+            icon=path+"music"+iconExt;
+            useDefault=false;
+            break;
+          }
+        }
+      }
+      
+      if(useDefault){                                             // process different types of extensions
+        foreach(string item in videoExts){
+          if(item.Equals(ext)){
+            icon=path+"video"+iconExt;
+            useDefault=false;
+            break;
+          }
+        }
+      }
       
       return icon;
     }
@@ -244,6 +288,23 @@ namespace ListFolders.Includes {
 // --------------------------------------------------- exports ---------------------------------------------------
     
     /*
+     * Exports text to a .txt file in 'export/text'
+     */
+    private void exportText() {
+      String exportPath, fileName, ext, text;
+
+      exportPath = "export/text/";
+      ext=".txt";
+      fileName = getExportName(ext);
+      fileName = exportPath + fileName;
+      
+      text=this.text;
+      // text=Functions.fixEncoding(text);
+      
+      Functions.writeFile(fileName,text);
+    }
+    
+    /*
      * Exports .json and .html files to the 'export/tree'
      * The .html file can be used directly to view the tree
      * The jsTree plugin must be in the 'tree/lib'
@@ -292,7 +353,7 @@ namespace ListFolders.Includes {
      */
     private string getExportName(string ext){
       bool useCurrentDir=true;
-      string exportName, name;
+      string exportName, name, res;
       
       exportName="no-name";
       
@@ -302,13 +363,9 @@ namespace ListFolders.Includes {
       }
       
       if(useCurrentDir){
-        exportName="export";
-        
-        Regex regex = new Regex(@"/([^/]+)$");
-        Match match = regex.Match(path);
-        if (match.Success) {
-          exportName = match.Groups[1].ToString();
-        }
+        res=Functions.regexFind(@"/([^/]+)$", path);
+        if(res.Length!=0)
+          exportName=res;
       }
       
       name=exportName;
