@@ -249,6 +249,7 @@
       // 
       // bBrowse
       // 
+      this.bBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.bBrowse.Location = new System.Drawing.Point(416, 26);
       this.bBrowse.Name = "bBrowse";
       this.bBrowse.Size = new System.Drawing.Size(75, 23);
@@ -281,9 +282,11 @@
       this.Controls.Add(this.bClearOut);
       this.Controls.Add(this.bScanDir);
       this.Controls.Add(this.tbPath);
+      this.KeyPreview = true;
       this.Name = "MainForm";
       this.Text = "List Folders";
       this.Load += new System.EventHandler(this.MainForm_Load);
+      this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
       this.panel1.ResumeLayout(false);
       this.panel1.PerformLayout();
       this.ResumeLayout(false);

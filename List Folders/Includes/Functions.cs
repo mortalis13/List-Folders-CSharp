@@ -83,6 +83,10 @@ namespace ListFolders.Includes {
       
       return res;
     }
+    
+    public static void log(string text){
+      MainForm.form.tbOut.Text+=text;
+    }
 
   }
 }

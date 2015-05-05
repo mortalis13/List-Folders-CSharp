@@ -11,9 +11,15 @@ using System.Web.Script.Serialization;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace Test {
   public partial class Test : Form {
+
+    [DllImport("user32.dll")]
+    public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
+    [DllImport("user32.dll")]
+    public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
     const string nl = "\r\n";
 
@@ -83,6 +89,13 @@ namespace Test {
     }
 
     private void test() {
+      Test.RegisterHotKey(this.Handle, this.GetType().GetHashCode(), 2, (int)'E');
+    }
+
+    protected override void WndProc(ref Message m) {
+      if (m.Msg == 0x0312)
+        MessageBox.Show("");
+      base.WndProc(ref m);
     }
 
     private void Test_Load(object sender, EventArgs e) {

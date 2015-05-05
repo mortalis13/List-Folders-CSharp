@@ -37,7 +37,7 @@
       this.tbRes.Location = new System.Drawing.Point(12, 12);
       this.tbRes.Margin = new System.Windows.Forms.Padding(10);
       this.tbRes.Name = "tbRes";
-      this.tbRes.Size = new System.Drawing.Size(204, 175);
+      this.tbRes.Size = new System.Drawing.Size(829, 520);
       this.tbRes.TabIndex = 1;
       this.tbRes.Text = "";
       this.tbRes.WordWrap = false;
@@ -47,7 +47,7 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(227, 207);
+      this.ClientSize = new System.Drawing.Size(852, 552);
       this.Controls.Add(this.tbRes);
       this.Name = "Test";
       this.Text = "Test";
