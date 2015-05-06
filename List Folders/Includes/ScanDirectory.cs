@@ -57,6 +57,10 @@ namespace ListFolders.Includes {
       "mov", "mp4", "mpg", "mpeg", "3gp",
     };
 
+    string[] codeExts ={
+      "c", "cpp", "cs", "java",
+    };
+
 // --------------------------------------------- Constructor --------------------------------------------- 
 
     public ScanDirectory(MainForm form) {
@@ -267,7 +271,7 @@ namespace ListFolders.Includes {
       iconExt=".png"; 
       
       ext=Functions.regexFind(@"\.([\w]+)$", file);
-      if(ext.Length==0) return icon;
+      if(ext==null) return icon;
       
       if(useDefault){                                             // process different types of extensions
         foreach(string item in exts){
@@ -304,6 +308,16 @@ namespace ListFolders.Includes {
           if(item.Equals(ext)){
             icon=path+"video"+iconExt;
             useDefault=false;
+            break;
+          }
+        }
+      }
+
+      if (useDefault) {                                             // process different types of extensions
+        foreach (string item in codeExts) {
+          if (item.Equals(ext)) {
+            icon = path + "code" + iconExt;
+            useDefault = false;
             break;
           }
         }
@@ -468,8 +482,8 @@ namespace ListFolders.Includes {
       }
       
       if(useCurrentDir){
-        res=Functions.regexFind(@"/([^/]+)$", path);
-        if(res.Length!=0)
+        res = Functions.regexFind(@"\\([^\\]+)\\?$", path);
+        if(res!=null)
           exportName=res;
       }
       

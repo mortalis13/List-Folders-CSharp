@@ -6,14 +6,18 @@ using System.Threading.Tasks;
 
 namespace ListFolders.Includes.Tree {
   public class TreeNode {
-    public String text;
 
-    public TreeNode(String text) {
+    public string text;
+    public string icon;
+
+    public TreeNode(string text) {
       this.text = text;
+      this.icon = "./lib/images/directory.png";
     }
 
-    public String toString() {
+    public string toString() {
       return text;
     }
+
   }
 }

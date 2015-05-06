@@ -15,7 +15,9 @@ namespace ListFolders {
   public partial class MainForm : Form {
     public static MainForm form;
     public static Database db;
+    
     ScanDirectory scandir;
+    TreeViewer treeViewer;
     
     public static bool startScan=true;
 
@@ -38,9 +40,17 @@ namespace ListFolders {
 
     private void MainForm_Load(object sender, EventArgs e) {
       form = this;
+      Form.CheckForIllegalCrossThreadCalls = false;
+
       db = new Database();
       new Functions();
       Functions.loadFields();
+    }
+
+    private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+      string value = Functions.encodeJSON(Functions.getFieldsMap());
+      db.updateConfig("last", value);
+      db.CloseConnection();
     }
 
     private void bBrowse_Click(object sender, EventArgs e) {
@@ -91,14 +101,9 @@ namespace ListFolders {
       }
     }
 
-    private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
-      string value = Functions.encodeJSON(Functions.getFieldsMap());
-      db.updateConfig("last", value);
-      db.CloseConnection();
-    }
-
-    private void bTest_Click(object sender, EventArgs e) {
-      //Functions.log(res.ToString());
+    private void bTreeViewer_Click(object sender, EventArgs e) {
+      treeViewer = new TreeViewer();
+      treeViewer.Show();
     }
 
   }

@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 namespace ListFolders.Includes.Tree {
   class FileNode : TreeNode{
 
-    public String icon;
-
     public FileNode(String text, String icon) : base(text) {
       this.icon = icon;
     }

@@ -49,7 +49,7 @@
       this.tbOut = new System.Windows.Forms.RichTextBox();
       this.bBrowse = new System.Windows.Forms.Button();
       this.bClearOut = new System.Windows.Forms.Button();
-      this.bTest = new System.Windows.Forms.Button();
+      this.bTreeViewer = new System.Windows.Forms.Button();
       this.progressBar = new System.Windows.Forms.ProgressBar();
       this.pStatus = new System.Windows.Forms.Panel();
       this.lStatus = new System.Windows.Forms.Label();
@@ -273,15 +273,15 @@
       this.bClearOut.UseVisualStyleBackColor = true;
       this.bClearOut.Click += new System.EventHandler(this.bClearOut_Click);
       // 
-      // bTest
+      // bTreeViewer
       // 
-      this.bTest.Location = new System.Drawing.Point(401, 300);
-      this.bTest.Name = "bTest";
-      this.bTest.Size = new System.Drawing.Size(90, 35);
-      this.bTest.TabIndex = 9;
-      this.bTest.Text = "Test";
-      this.bTest.UseVisualStyleBackColor = true;
-      this.bTest.Click += new System.EventHandler(this.bTest_Click);
+      this.bTreeViewer.Location = new System.Drawing.Point(401, 300);
+      this.bTreeViewer.Name = "bTreeViewer";
+      this.bTreeViewer.Size = new System.Drawing.Size(90, 35);
+      this.bTreeViewer.TabIndex = 9;
+      this.bTreeViewer.Text = "Tree Viewer";
+      this.bTreeViewer.UseVisualStyleBackColor = true;
+      this.bTreeViewer.Click += new System.EventHandler(this.bTreeViewer_Click);
       // 
       // progressBar
       // 
@@ -318,7 +318,7 @@
       this.ClientSize = new System.Drawing.Size(503, 624);
       this.Controls.Add(this.pStatus);
       this.Controls.Add(this.progressBar);
-      this.Controls.Add(this.bTest);
+      this.Controls.Add(this.bTreeViewer);
       this.Controls.Add(this.bBrowse);
       this.Controls.Add(this.tbOut);
       this.Controls.Add(this.lExportName);
@@ -366,7 +366,7 @@
         public System.Windows.Forms.RichTextBox tbOut;
         private System.Windows.Forms.Button bBrowse;
         public System.Windows.Forms.Button bClearOut;
-        private System.Windows.Forms.Button bTest;
+        private System.Windows.Forms.Button bTreeViewer;
         private System.Windows.Forms.Panel pStatus;
         public System.Windows.Forms.ProgressBar progressBar;
         public System.Windows.Forms.Label lStatus;

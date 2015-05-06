@@ -14,6 +14,8 @@ namespace ListFolders.Includes {
     string sql;
     string res;
 
+    bool connected;
+
     private MySqlConnection conn;
     private string server;
     private string database;
@@ -23,7 +25,7 @@ namespace ListFolders.Includes {
     public Database() {
       if (conn == null)
         conn = createConnection();
-      OpenConnection();
+      connected=OpenConnection();
     }
 
     private MySqlConnection createConnection() {
@@ -63,7 +65,7 @@ namespace ListFolders.Includes {
     public bool Exists(string table, string name) {
       sql = "select count(*) from " + table + " where name=@name";
       int count=0;
-      if (conn == null) return false;
+      if (!connected) return false;
 
       MySqlCommand cmd = new MySqlCommand(sql, conn);
       cmd.Prepare();
@@ -78,7 +80,7 @@ namespace ListFolders.Includes {
      * General update method
      */
     public void updateOption(string name, string value, string dbtable){
-      if(conn==null) return;
+      if (!connected) return;
 
       bool res;
       table=options_table;
@@ -132,8 +134,8 @@ namespace ListFolders.Includes {
      */
     public string getOption(string name, string table){
       sql="select value from "+table+" where name=@name";
-      
-      if(conn==null) return null;
+
+      if (!connected) return null;
       
       MySqlCommand cmd = new MySqlCommand(sql, conn);
       
