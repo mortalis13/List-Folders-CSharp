@@ -29,8 +29,7 @@
       this.bBrowse = new System.Windows.Forms.Button();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
-      this.tbOut = new System.Windows.Forms.RichTextBox();
-      this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+      this.worker = new System.ComponentModel.BackgroundWorker();
       this.SuspendLayout();
       // 
       // treeView
@@ -40,7 +39,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.treeView.Location = new System.Drawing.Point(12, 75);
       this.treeView.Name = "treeView";
-      this.treeView.Size = new System.Drawing.Size(529, 278);
+      this.treeView.Size = new System.Drawing.Size(529, 380);
       this.treeView.TabIndex = 0;
       this.treeView.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterCollapse);
       this.treeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterExpand);
@@ -96,25 +95,15 @@
       this.label2.TabIndex = 5;
       this.label2.Text = "Tree";
       // 
-      // tbOut
+      // worker
       // 
-      this.tbOut.Location = new System.Drawing.Point(12, 368);
-      this.tbOut.Name = "tbOut";
-      this.tbOut.Size = new System.Drawing.Size(521, 86);
-      this.tbOut.TabIndex = 6;
-      this.tbOut.Text = "";
-      // 
-      // backgroundWorker1
-      // 
-      this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-      this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+      this.worker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
       // 
       // TreeViewer
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(553, 524);
-      this.Controls.Add(this.tbOut);
       this.Controls.Add(this.label2);
       this.Controls.Add(this.label1);
       this.Controls.Add(this.bBrowse);
@@ -139,8 +128,7 @@
     private System.Windows.Forms.Button bBrowse;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
-    private System.Windows.Forms.RichTextBox tbOut;
-    private System.ComponentModel.BackgroundWorker backgroundWorker1;
+    private System.ComponentModel.BackgroundWorker worker;
 
   }
 }
