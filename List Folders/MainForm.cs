@@ -24,12 +24,25 @@ namespace ListFolders {
     public MainForm() {
       InitializeComponent();
       pStatus.Paint += Functions.drawBorder;
-
-      tbPath.Text = @"C:\1-Roman\Documents\8-test\list-test\en";
     }
 
+    private void MainForm_Load(object sender, EventArgs e) {
+      form = this;
+      Form.CheckForIllegalCrossThreadCalls = false;                     // disable check for calls to UI elements (like tbOut.Text=...) from other threads
+
+      db = new Database();
+      new Functions();
+      Functions.loadFields();                                           // load last saved fields from the database ('config' table, 'last' row)
+    }
+
+    private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+      string value = Functions.encodeJSON(Functions.getFieldsMap());
+      db.updateConfig("last", value);                                   // save current fields to the database ('config' table) to restore them in the next session
+      db.CloseConnection();
+    }
+    
     private void bScanDir_Click(object sender, EventArgs e) {
-      if (MainForm.startScan) {
+      if (MainForm.startScan) {                                         // start or stop scanning
         scandir = new ScanDirectory(form);
         scandir.startScan();
       }
@@ -38,22 +51,7 @@ namespace ListFolders {
       }
     }
 
-    private void MainForm_Load(object sender, EventArgs e) {
-      form = this;
-      Form.CheckForIllegalCrossThreadCalls = false;
-
-      db = new Database();
-      new Functions();
-      Functions.loadFields();
-    }
-
-    private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
-      string value = Functions.encodeJSON(Functions.getFieldsMap());
-      db.updateConfig("last", value);
-      db.CloseConnection();
-    }
-
-    private void bBrowse_Click(object sender, EventArgs e) {
+    private void bBrowse_Click(object sender, EventArgs e) {          // open folder chooser starting from the directory in the Path field
       FolderBrowserDialog browseDir;
       DialogResult result;
       string folderName, path;
@@ -68,15 +66,6 @@ namespace ListFolders {
         folderName = browseDir.SelectedPath;
         tbPath.Text = folderName;
       }
-
-      // OpenFileDialog openFileDialog1 = new OpenFileDialog();
-
-      // openFileDialog1.InitialDirectory = "c:\\" ;
-      // openFileDialog1.RestoreDirectory = true ;
-
-      // if(openFileDialog1.ShowDialog() == DialogResult.OK) {
-      //   tbPath.Text=openFileDialog1.FileName;
-      // }
     }
 
     private void bClearFilterExt_Click(object sender, EventArgs e) {

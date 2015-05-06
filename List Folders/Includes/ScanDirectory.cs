@@ -86,6 +86,8 @@ namespace ListFolders.Includes {
       filterDir=getFilters(filterDirText);
     }
 
+// --------------------------------------------- Main processing --------------------------------------------- 
+
     public void startScan(){                                         // << Start point >>
       scanCanceled=false;
       worker = new Thread(backgroundProcess);
@@ -97,12 +99,19 @@ namespace ListFolders.Includes {
       // worker.Abort();
     }
 
+    /*
+     * Thread runner
+     */
     void backgroundProcess() {
       prepareProcessing();
       jsonArray = fullScan(path, 0);
       done();
     }
     
+    /*
+     * Actions after main scanning
+     * Still runs in the thread but after the whole scanning
+     */
     private void done(){
       if(doExportText) exportText();
       if(doExportTree) exportTree();
@@ -123,6 +132,9 @@ namespace ListFolders.Includes {
       }
     }
     
+    /*
+     * Sets progress bar, gets initial time, changes button label
+     */
     void prepareProcessing(){
       Functions.setProgress(0);
       Functions.clearLog();
@@ -131,6 +143,9 @@ namespace ListFolders.Includes {
       MainForm.startScan=false;
     }
 
+    /*
+     * Recursively scans all subdirectories
+     */
     private List<TreeNode> fullScan(string dir, int level) {
       if(scanCanceled) return null;
       
@@ -141,15 +156,15 @@ namespace ListFolders.Includes {
       
       json = new List<TreeNode>();
       
-      list = new DirectoryInfo(dir);
+      list = new DirectoryInfo(dir);                              // get all dir/files list
       pad = getPadding(level);
 
-      DirectoryInfo[] dirList=list.GetDirectories();
+      DirectoryInfo[] dirList=list.GetDirectories();              // only dirs
       if (level == 0) {
         rootDirCount = getDirCount(dirList.Length);
       }
       
-      foreach (DirectoryInfo nextDir in dirList) {
+      foreach (DirectoryInfo nextDir in dirList) {                // ||= loop directories =||
         string name=nextDir.Name;
         string currentDir = "[" + name + "]";
 
@@ -159,15 +174,15 @@ namespace ListFolders.Includes {
         } 
 
         if(doExportText)
-          text += pad + currentDir + nl;
+          text += pad + currentDir + nl;                          // accumulate text structure
         
-        res=fullScan(nextDir.FullName, level+1);
+        res=fullScan(nextDir.FullName, level+1);                  // recursive point
         if(res==null) return null;
         
         node = new DirNode(name, res);
-        json.Add(node);
+        json.Add(node);                                           // accumulate recursive tree structure
 
-        if (level == 0) {
+        if (level == 0) {                                         // update progress status for scanned top-level directories
           dirCount++;
           int progress=(int) ((float) dirCount/rootDirCount*100);
           logStats(currentDir, progress);
@@ -175,7 +190,7 @@ namespace ListFolders.Includes {
         }
       }
 
-      foreach (FileInfo nextFile in list.GetFiles()) {
+      foreach (FileInfo nextFile in list.GetFiles()) {                // ||= loop files =||
         string name=nextFile.Name;
         if(!filterFile(name)) continue;
         
@@ -190,13 +205,7 @@ namespace ListFolders.Includes {
       return json;
     }
     
-// --------------------------------------------------- helpers ---------------------------------------------------
-    
-    private int getDirCount(int totalCount){
-      int filteredCount=filterDir.Count;
-      if(filteredCount==0) return totalCount;
-      return filteredCount;
-    }
+// --------------------------------------------------- logging ---------------------------------------------------
     
     /*
      * Calculates and outputs time between folders processing
@@ -235,9 +244,23 @@ namespace ListFolders.Includes {
       form.lStatus.Text=text;
     }
     
+    /*
+     * Uses shorter version of the same function in the Functions class
+     */
     private void log(string text){
       Functions.log(text);
     }
+    
+    /*
+     * Gets top-level count of directories to be scanned
+     */
+    private int getDirCount(int totalCount){
+      int filteredCount=filterDir.Count;
+      if(filteredCount==0) return totalCount;
+      return filteredCount;
+    }
+    
+// --------------------------------------------------- helpers ---------------------------------------------------
     
     /*
      * Replaces strings from the tree template (strings format: '_string_') with the 'replacement' text
@@ -273,7 +296,7 @@ namespace ListFolders.Includes {
       ext=Functions.regexFind(@"\.([\w]+)$", file);
       if(ext==null) return icon;
       
-      if(useDefault){                                             // process different types of extensions
+      if(useDefault){                                             // extensions for known types
         foreach(string item in exts){
           if(item.Equals(ext)){
             icon=path+item+iconExt;
@@ -283,7 +306,7 @@ namespace ListFolders.Includes {
         }
       }
       
-      if(useDefault){                                             // process different types of extensions
+      if(useDefault){                                             // general extensions for "images"
         foreach(string item in imageExts){
           if(item.Equals(ext)){
             icon=path+"image"+iconExt;
@@ -293,7 +316,7 @@ namespace ListFolders.Includes {
         }
       }
       
-      if(useDefault){                                             // process different types of extensions
+      if(useDefault){                                             // general extensions for "music"
         foreach(string item in musicExts){
           if(item.Equals(ext)){
             icon=path+"music"+iconExt;
@@ -303,7 +326,7 @@ namespace ListFolders.Includes {
         }
       }
       
-      if(useDefault){                                             // process different types of extensions
+      if(useDefault){                                             // general extensions for "video"
         foreach(string item in videoExts){
           if(item.Equals(ext)){
             icon=path+"video"+iconExt;
@@ -313,7 +336,7 @@ namespace ListFolders.Includes {
         }
       }
 
-      if (useDefault) {                                             // process different types of extensions
+      if (useDefault) {                                             // general extensions for "code"
         foreach (string item in codeExts) {
           if (item.Equals(ext)) {
             icon = path + "code" + iconExt;
@@ -328,47 +351,6 @@ namespace ListFolders.Includes {
     
 // --------------------------------------------------- filters ---------------------------------------------------
     
-    /*
-     * Gets text for the tree template
-     */
-    private string getFiltersText() {
-      string filterExtText="", excludeExtText="", filterDirText="", filters="";
-      
-      if(filterExt.Count!=0){
-        filterExtText = string.Join(",", filterExt);
-      }
-      if(excludeExt.Count!=0){
-        excludeExtText = string.Join(",", excludeExt);
-      }
-      if(filterDir.Count!=0){
-        filterDirText = string.Join(",", filterDir); 
-      }
-      
-      filters="Files include ["+filterExtText+"]";
-      filters+=", Files exclude ["+excludeExtText+"]";
-      filters+=", Directories ["+filterDirText+"]";
-      
-      return filters;
-    }
-    
-    /*
-     * Cleans, trims and checks filters for emptiness
-     */
-    private List<string> getFilters(string filter) {
-      List<string> list=new List<string>();
-      string[] elements;
-      filter=filter.Trim();
-      
-      if(filter.Length!=0){
-        elements=filter.Split('\n');
-        foreach(string s in elements){
-          list.Add(s.Trim());
-        }
-      }      
-      
-      return list;
-    }    
-  
     /*
      * Filters file extensions and returns true if the file will be included in the output
      * If exclude filter is not empty ignores the include filter
@@ -401,6 +383,47 @@ namespace ListFolders.Includes {
           return true;
       }
       return false;
+    }
+    
+    /*
+     * Cleans, trims and checks filters for emptiness
+     */
+    private List<string> getFilters(string filter) {
+      List<string> list=new List<string>();
+      string[] elements;
+      filter=filter.Trim();
+      
+      if(filter.Length!=0){
+        elements=filter.Split('\n');
+        foreach(string s in elements){
+          list.Add(s.Trim());
+        }
+      }      
+      
+      return list;
+    }    
+    
+    /*
+     * Gets text for the tree template
+     */
+    private string getFiltersText() {
+      string filterExtText="", excludeExtText="", filterDirText="", filters="";
+      
+      if(filterExt.Count!=0){
+        filterExtText = string.Join(",", filterExt);
+      }
+      if(excludeExt.Count!=0){
+        excludeExtText = string.Join(",", excludeExt);
+      }
+      if(filterDir.Count!=0){
+        filterDirText = string.Join(",", filterDir); 
+      }
+      
+      filters="Files include ["+filterExtText+"]";
+      filters+=", Files exclude ["+excludeExtText+"]";
+      filters+=", Directories ["+filterDirText+"]";
+      
+      return filters;
     }
     
 // --------------------------------------------------- exports ---------------------------------------------------
@@ -439,9 +462,7 @@ namespace ListFolders.Includes {
       string jsonFile, htmlFile;
       
       json = Functions.encodeJSON(jsonArray);
-      // json = new JavaScriptSerializer().Serialize(jsonArray);
-      
-      treeName=getExportName(null);                                         // get name
+      treeName=getExportName(null);                                       // get name
       
       tmpl="templates/tree.html";
       exportPath="export/tree/";
@@ -451,7 +472,7 @@ namespace ListFolders.Includes {
       exportDoc=treeName+".html";
       exportJSON=treeName+".json";
       
-      doc=Functions.readFile(tmpl);                                               // process template
+      doc=Functions.readFile(tmpl);                                        // process template
       doc=replaceTemplate("_jsonPath_", jsonFolder+exportJSON, doc);
       doc=replaceTemplate("_Title_", "Directory: "+treeName, doc);
       doc=replaceTemplate("_FolderPath_", "Directory: "+path, doc);
@@ -462,7 +483,7 @@ namespace ListFolders.Includes {
       htmlFile=exportPath+exportDoc;                                        // get paths
       jsonFile=jsonPath+exportJSON;
         
-      Functions.writeFile(htmlFile, doc);                                             // write results
+      Functions.writeFile(htmlFile, doc);                                   // write results
       Functions.writeFile(jsonFile, json);
     }
     

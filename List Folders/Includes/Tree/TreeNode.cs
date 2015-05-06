@@ -12,7 +12,7 @@ namespace ListFolders.Includes.Tree {
 
     public TreeNode(string text) {
       this.text = text;
-      this.icon = "./lib/images/directory.png";
+      this.icon = "./lib/images/directory.png";                     // default folder icon
     }
 
     public string toString() {
