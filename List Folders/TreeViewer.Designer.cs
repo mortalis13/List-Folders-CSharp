@@ -97,7 +97,7 @@
       // 
       // worker
       // 
-      this.worker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+      this.worker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.worker_DoWork);
       // 
       // TreeViewer
       // 
@@ -113,7 +113,6 @@
       this.KeyPreview = true;
       this.Name = "TreeViewer";
       this.Text = "Tree Viewer";
-      this.Load += new System.EventHandler(this.TreeViewer_Load);
       this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TreeViewer_KeyDown);
       this.ResumeLayout(false);
       this.PerformLayout();

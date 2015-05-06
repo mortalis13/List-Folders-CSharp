@@ -32,7 +32,6 @@ namespace ListFolders.Includes {
     
     int dirCount = 0;
     int rootDirCount = 0;
-    int longestDirName = 0;
     public static bool scanCanceled = false;
     long prevTime = 0;
     int totalTime = 0;

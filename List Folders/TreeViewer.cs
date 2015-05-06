@@ -107,7 +107,7 @@ namespace ListFolders {
     /*
      * Background worker builds tree and outputs it to the TreeView component
      */
-    private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e) {
+    private void worker_DoWork(object sender, DoWorkEventArgs e) {
       long time1, time2;                                                            // calculate time of the processing 
       time1 = Functions.ms();
 
