@@ -463,6 +463,8 @@ namespace ListFolders.Includes {
       string jsonFile, htmlFile;
       
       json = Functions.encodeJSON(jsonArray);
+      if (json == null) return;
+
       treeName=getExportName(null);                                       // get name
       
       tmpl=Functions.getPath(@"templates\tree.html");

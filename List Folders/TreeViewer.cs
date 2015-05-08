@@ -61,7 +61,6 @@ namespace ListFolders {
      */
     private void bLoadTree_Click(object sender, EventArgs e) {
       string json;
-      object tree;
 
       treeView.Nodes.Clear();
 
@@ -77,10 +76,32 @@ namespace ListFolders {
       treeView.ImageKey = treeView.SelectedImageKey = closeFolder;            // folder icons
 
       json = Functions.readFile(path);
-      tree = new JavaScriptSerializer().DeserializeObject(json);
-      rootTree = (object[])tree;                                              // get tree structure as array of objects for top-level folders/files
+      rootTree = getTreeObject(json);
+      if (rootTree == null) return;
       
       worker.RunWorkerAsync();                                                // run background worker
+    }
+
+    /*
+     * Returns object array after deserialization from the JSON string
+     */
+    private object[] getTreeObject(string json) {
+      object tree=null;
+      JavaScriptSerializer serializer;
+
+      serializer = new JavaScriptSerializer();
+      serializer.MaxJsonLength = int.MaxValue;            // for large files
+
+      try {
+        tree = serializer.DeserializeObject(json);
+      }
+      catch (Exception e) {
+        MessageBox.Show(e.Message, "Error");
+        return null;
+      }
+
+      rootTree = (object[])tree;
+      return rootTree;
     }
 
 // ---------------------------------------------- TreeView events ----------------------------------------------

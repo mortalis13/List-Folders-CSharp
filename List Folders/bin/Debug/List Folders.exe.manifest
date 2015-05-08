@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="List Folders.exe" size="88576">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="List Folders.exe" size="89088">
       <assemblyIdentity name="List Folders" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>QavMJ7feKXRTpuy0NdJp7JBMDMPka7sfKRXpylFA+pM=</dsig:DigestValue>
+        <dsig:DigestValue>6fClPb+hsUWmZS4G5tY3ELlnwjCZBpMAlvU80buloHk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -219,7 +219,18 @@ namespace ListFolders.Includes {
      * Gets JSON string from an object (array, array list, hash map)
      */
     public static string encodeJSON(object obj) {
-      string json = new JavaScriptSerializer().Serialize(obj);
+      string json=null;
+      JavaScriptSerializer serializer;
+      
+      serializer = new JavaScriptSerializer();
+      serializer.MaxJsonLength = int.MaxValue;
+
+      try {
+        json = serializer.Serialize(obj);
+      }
+      catch (Exception e) {
+        MessageBox.Show(e.Message, "Error");
+      }
       return json;
     }
 
