@@ -46,7 +46,7 @@ namespace ListFolders {
 
       browseFile = new OpenFileDialog();
 
-      browseFile.InitialDirectory = Functions.getPath(@"\export\tree\json");
+      browseFile.InitialDirectory = Functions.getPath(@"export\tree\json");
       //browseFile.InitialDirectory = Directory.GetCurrentDirectory() + @"\export\tree\json";
       browseFile.Filter = "JSON files (*.json)|*.json";
       browseFile.RestoreDirectory = true;

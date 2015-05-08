@@ -1,5 +1,4 @@
 C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\List Folders\bin\Release\List Folders.exe.config
-C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\List Folders\bin\Release\templates\tree.html
 C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\List Folders\bin\Release\List Folders.exe.manifest
 C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\List Folders\bin\Release\List Folders.application
 C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\List Folders\bin\Release\List Folders.exe
@@ -11,4 +10,3 @@ C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\List Fo
 C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\List Folders\obj\Release\List Folders.exe.manifest
 C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\List Folders\obj\Release\List Folders.application
 C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\List Folders\obj\Release\List Folders.exe
-C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\List Folders\obj\Release\List Folders.csprojResolveAssemblyReference.cache
