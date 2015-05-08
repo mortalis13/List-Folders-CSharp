@@ -1,4 +1,5 @@
-﻿using ListFolders.Includes.Tree;
+﻿using Tree = ListFolders.Includes.Tree;
+using ListFolders.Includes.Tree;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web.Script.Serialization;
+using System.Windows.Forms;
 
 namespace ListFolders.Includes {
   public class ScanDirectory {
@@ -15,7 +17,7 @@ namespace ListFolders.Includes {
     public string path;
 
     public string text="";
-    public List<TreeNode> jsonArray;
+    public List<Tree.TreeNode> jsonArray;
 
     const string nl = "\r\n";
     const string pad="    ";
@@ -145,15 +147,15 @@ namespace ListFolders.Includes {
     /*
      * Recursively scans all subdirectories
      */
-    private List<TreeNode> fullScan(string dir, int level) {
+    private List<Tree.TreeNode> fullScan(string dir, int level) {
       if(scanCanceled) return null;
-      
-      List<TreeNode> json, res;
-      TreeNode node;
+
+      List<Tree.TreeNode> json, res;
+      Tree.TreeNode node;
       DirectoryInfo list;
       string pad;
-      
-      json = new List<TreeNode>();
+
+      json = new List<Tree.TreeNode>();
       
       list = new DirectoryInfo(dir);                              // get all dir/files list
       pad = getPadding(level);
@@ -433,7 +435,7 @@ namespace ListFolders.Includes {
     private void exportText() {
       String exportPath, fileName, ext, text;
 
-      exportPath = "export/text/";
+      exportPath = Functions.getPath(@"export\text\");
       ext=".txt";
       fileName = getExportName(ext);
       fileName = exportPath + fileName;
@@ -463,15 +465,25 @@ namespace ListFolders.Includes {
       json = Functions.encodeJSON(jsonArray);
       treeName=getExportName(null);                                       // get name
       
-      tmpl="templates/tree.html";
-      exportPath="export/tree/";
-      jsonFolder="json/";
+      tmpl=Functions.getPath(@"templates\tree.html");
+      exportPath=Functions.getPath(@"export\tree\");
+      jsonFolder=@"json\";
       jsonPath=exportPath+jsonFolder;
       
       exportDoc=treeName+".html";
       exportJSON=treeName+".json";
-      
-      doc=Functions.readFile(tmpl);                                        // process template
+
+      try {
+        doc=Functions.readFile(tmpl);                                        // process template
+        if (doc == null) {
+          throw new Exception("No \"templates/tree.html\" file");
+        }
+      }
+      catch (Exception e) {
+        MessageBox.Show(e.Message, "Error");
+        return;
+      }
+
       doc=replaceTemplate("_jsonPath_", jsonFolder+exportJSON, doc);
       doc=replaceTemplate("_Title_", "Directory: "+treeName, doc);
       doc=replaceTemplate("_FolderPath_", "Directory: "+path, doc);

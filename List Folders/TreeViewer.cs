@@ -24,7 +24,7 @@ namespace ListFolders {
     string path;
     string rootName="no-name";
 
-    string iconsPath = "lib/icons/";
+    string iconsPath = Functions.getPath(@"lib\icons\");
     string closeFolder = "dir.png";
     string openFolder = "dir-open.png";
 
@@ -45,7 +45,9 @@ namespace ListFolders {
       OpenFileDialog browseFile;
 
       browseFile = new OpenFileDialog();
-      browseFile.InitialDirectory = Directory.GetCurrentDirectory()+ @"\export\tree\json";
+
+      browseFile.InitialDirectory = Functions.getPath(@"\export\tree\json");
+      //browseFile.InitialDirectory = Directory.GetCurrentDirectory() + @"\export\tree\json";
       browseFile.Filter = "JSON files (*.json)|*.json";
       browseFile.RestoreDirectory = true;
 

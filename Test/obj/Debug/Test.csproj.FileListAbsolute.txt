@@ -1,3 +1,4 @@
+C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\Test\bin\Debug\templates\tree.html
 C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\Test\bin\Debug\Test.exe.config
 C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\Test\bin\Debug\Test.exe
 C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\Test\bin\Debug\Test.pdb
@@ -6,5 +7,3 @@ C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\Test\ob
 C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\Test\obj\Debug\Test.csproj.GenerateResource.Cache
 C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\Test\obj\Debug\Test.exe
 C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\Test\obj\Debug\Test.pdb
-C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\Test\obj\Debug\Test.csprojResolveAssemblyReference.cache
-C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\Test\bin\Debug\templates\tree.html

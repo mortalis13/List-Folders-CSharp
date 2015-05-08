@@ -115,6 +115,13 @@ namespace ListFolders.Includes {
     }
 
     /*
+     * Returns full path relative to the main .exe
+     */
+    public static string getPath(string path) {
+      return Application.StartupPath + "\\" + path;
+    }
+
+    /*
      * Returns file name from the full path of the JSON file
      * the name is assigned to the root directory name
      */

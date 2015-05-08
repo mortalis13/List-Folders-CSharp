@@ -28,6 +28,11 @@ namespace ListFolders.Includes {
       if (conn == null)
         conn = createConnection();
       connected=OpenConnection();
+
+      string text;
+      if (!connected) text= "No MySQL Connection";
+      else text = "MySQL connected";
+      MainForm.form.lStatus.Text = text;
     }
 
     /*
@@ -77,6 +82,8 @@ namespace ListFolders.Includes {
      * Checks if "name" exists in the table
      */
     public bool Exists(string table, string name) {
+      string sql;
+
       sql = "select count(*) from " + table + " where name=@name";
       int count=0;
       if (!connected) return false;

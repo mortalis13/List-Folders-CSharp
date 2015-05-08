@@ -23,6 +23,7 @@
     /// the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent() {
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TreeViewer));
       this.treeView = new System.Windows.Forms.TreeView();
       this.bLoadTree = new System.Windows.Forms.Button();
       this.tbPath = new System.Windows.Forms.TextBox();
@@ -110,6 +111,7 @@
       this.Controls.Add(this.tbPath);
       this.Controls.Add(this.bLoadTree);
       this.Controls.Add(this.treeView);
+      this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.KeyPreview = true;
       this.Name = "TreeViewer";
       this.Text = "Tree Viewer";
