@@ -6,6 +6,5 @@ obj\Debug\UI_Texts.wixobj
 obj\Debug\SetupProject.wixproj.BindContentsFileListnull.txt
 obj\Debug\SetupProject.wixproj.BindOutputsFileListnull.txt
 obj\Debug\SetupProject.wixproj.BindBuiltOutputsFileListnull.txt
-C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\SetupProject\bin\Debug\cab1.cab
 C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\SetupProject\bin\Debug\List Folders 1.0.0.msi
 C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\SetupProject\bin\Debug\List Folders 1.0.0.wixpdb
