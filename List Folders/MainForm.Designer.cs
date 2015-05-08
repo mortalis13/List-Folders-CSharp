@@ -266,7 +266,7 @@
       // 
       // bClearOut
       // 
-      this.bClearOut.Location = new System.Drawing.Point(143, 312);
+      this.bClearOut.Location = new System.Drawing.Point(204, 312);
       this.bClearOut.Name = "bClearOut";
       this.bClearOut.Size = new System.Drawing.Size(110, 23);
       this.bClearOut.TabIndex = 1;

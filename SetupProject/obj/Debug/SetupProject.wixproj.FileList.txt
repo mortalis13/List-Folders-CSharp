@@ -8,3 +8,5 @@ C:\1-Roman\Documents\3-programming\2-projects\Visual Studio\List Folders\SetupPr
 obj\Debug\SetupProject.wixproj.BindContentsFileListnull.txt
 obj\Debug\SetupProject.wixproj.BindOutputsFileListnull.txt
 obj\Debug\SetupProject.wixproj.BindBuiltOutputsFileListnull.txt
+C:\1-Roman\Documents\3-programming\3-small-projects\list-folders\c#\source\List Folders\SetupProject\bin\Debug\List Folders 1.0.0.msi
+C:\1-Roman\Documents\3-programming\3-small-projects\list-folders\c#\source\List Folders\SetupProject\bin\Debug\List Folders 1.0.0.wixpdb
