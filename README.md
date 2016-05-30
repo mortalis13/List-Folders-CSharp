@@ -1,5 +1,7 @@
 # List Folders
 
+[![Download List Folders](https://sourceforge.net/sflogo.php?type=11&group_id=2452708)](https://sourceforge.net/projects/listfolders/files/C%23)
+
 Main features:
 
 - List files and subfolders of a selected directory.
@@ -29,7 +31,7 @@ Additional **Export name** field allows set different name for exported files. B
 
 # Install & Run
 
-1. Run the **List Folders.exe** or **List Folders.msi** installer and pass all steps.
+1. Run the **List Folders.exe** or **List Folders.msi** installer and pass all steps ([installer on SourceForge](https://sourceforge.net/projects/listfolders/files/C%23/)).
 2. The **Desktop** and **Start Menu** *shortcuts* should be created.
 3. Start the **MySQL** server if needed.
 4. Start the program with the shortcut or using the **List Folders.exe** file from the installed directory.
@@ -71,12 +73,18 @@ Additional **Export name** field allows set different name for exported files. B
 - If **MySQL** server is not running the status message *"No MySQL Connection"* should appear. And the program is fully functional without the connection. It just doesn't remember the state on exit.
 
 
+## Screenshots
+
+![list-folders-main-cs](/files/list-folders-main-cs.png)
+![tree-viewer-cs](/files/tree-viewer-cs.png)
+
+
 ## Changelog
 
 ### 1.0.1
 
 - Add: Compatibility with Windows XP
-- Add: MySQL dll to the program to load it locally indepenently of existence in the Framework
+- Add: MySQL dll to the program to load it locally independently of existence in the Framework
 
 - Change: .NET Framework required version to 4.0
 
