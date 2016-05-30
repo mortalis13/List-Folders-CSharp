@@ -85,7 +85,5 @@ Additional **Export name** field allows set different name for exported files. B
 
 - Add: Compatibility with Windows XP
 - Add: MySQL dll to the program to load it locally independently of existence in the Framework
-
 - Change: .NET Framework required version to 4.0
-
 - Fix: Path to JSON file inside of HTML file for jsTree view (it uses / instead of \)
